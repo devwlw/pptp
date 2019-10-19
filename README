@@ -1,0 +1,27 @@
+#配置admin
+       1. cd script && ./init.sh
+       2. 把项目移到 $GOPATH/src
+       3. 把src.zip解压到$GOPATH/src下
+       4. 配置config,启动admin,配置节点信息
+
+#启动node
+       1. cd script && ./init.sh
+       2. 把项目移到 $GOPATH/src
+       3. 把src.zip解压到$GOPATH/src下
+       #如果不是新机器则不用上面三步
+       4. 配置config,启动deploy    go run main.go serve -c config.json
+       python init.py --admin http://xx.xx.xx
+
+
+
+#####重启机器后应该手动执行
+sudo modprobe nf_conntrack_pptp
+sudo modprobe nf_conntrack_proto_gre
+ip link set  eno16777736  promisc on
+
+ip link add mac-docker link eno16777736 type macvlan  mode bridge  #eno16777736为网络名,每台机器可能不一样
+ip addr add 192.168.101.2/32 dev mac-docker   #这里的ip是节点的aux ip,可以在后台查看
+ip link set mac-docker up
+ip route add 192.168.101.0/25 dev mac-docker    #192.168.101.0/25 为节点的ipRange属性,可以在后台查看到
+
+192.168.1.0/26

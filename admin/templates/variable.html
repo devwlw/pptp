@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>高级变量</title>
+
+    <!-- Bootstrap -->
+    <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="/build/css/custom.min.css" rel="stylesheet">
+    <style>
+        .op{
+            margin-right: 3px;
+        }
+        .op:hover{
+            cursor: pointer;
+            color: red;
+        }
+    </style>
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+
+                <div class="clearfix"></div>
+                <!-- /menu profile quick info -->
+
+                <br />
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3>后台管理系统</h3>
+                        <ul class="nav side-menu">
+                            <li><a class="" href="/admin/setting"><i class="fa fa-cogs"></i>系统设置 <span class="fa"></span></a>
+                            </li>
+                            <li><a class="" href="/admin/docker"><i class="fa fa-cogs"></i>容器管理 <span class="fa"></span></a>
+                            </li>
+                            <li class=""><a href="/admin/templates"><i class="fa fa-bar-chart"></i>模板管理 <span class="fa"></span></a>
+                            </li>
+                            <li class=""><a class="current-page" href="/admin/variable"><i class="fa fa-bar-chart"></i>高级变量 <span class="fa"></span></a>
+                            </li>
+                            <li ><a href="/admin/mail"><i class="fa fa-user"></i>邮件发送 <span class="fa"></span></a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="menu_section" style="visibility: hidden">
+                        <ul class="nav side-menu">
+                            <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- /sidebar menu -->
+
+                <!-- /menu footer buttons -->
+                <!-- /menu footer buttons -->
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <!--
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li class="">
+                                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <img id="avatarImg" src="images/img.jpg" alt="">admin
+                                                <span class=" fa fa-angle-down"></span>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                                <li><a href="/admin/user"> 账户设置</a></li>
+                                                <li><a href="/admin/login"><i class="fa fa-sign-out pull-right"></i>注销</a></li>
+                                                <li>
+                                            </ul>
+                                        </li>
+                                    </ul>-->
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2><i class="fa fa-bars"></i>高级变量</h2>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+
+                            <form action="/admin/variable" method="post" enctype="multipart/form-data">
+                                <div class="form-group" role="tabpanel" data-example-id="togglable-tabs">
+                                    <ul id="variableList" class="nav nav-tabs bar_tabs" role="tablist">
+                                          <li></li>
+                                          <li role="presentation" class="active"><a href="#variable1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">高级变量1</a>
+                                          </li>
+                                          <li role="presentation" class=""><a href="#variable2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">高级变量2</a>
+                                          </li>
+                                        <li role="presentation" class=""><a href="#variable3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">高级变量3</a>
+                                        </li>
+                                        <li role="presentation" class=""><a href="#variable4" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">高级变量4</a>
+                                        </li>
+                                        <li role="presentation" class=""><a href="#variable5" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">高级变量5</a>
+                                        </li>
+                                        <li role="presentation" class=""><a href="#variable6" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">高级变量6</a>
+                                        </li>
+                                        <li role="presentation" class=""><a href="#variable7" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">高级变量7</a>
+                                        </li>
+                                        <li role="presentation" class=""><a href="#variable8" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">高级变量8</a>
+                                        </li>
+                                        <li role="presentation" class=""><a href="#variable9" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">高级变量9</a>
+                                        </li>
+                                        <li role="presentation" class=""><a href="#variable10" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">高级变量10</a>
+                                        </li>
+                                    </ul>
+                                    <div id="myTabContent" class="tab-content">
+                                        <div role="tabpanel" class="tab-pane fade active in" id="variable1" aria-labelledby="home-tab">
+                                                <div class="col-md-6 col-sm-9 col-xs-12">
+                                                    <textarea name="variable1" id="variable1" style="height: 450px;width: 100%">{{.variable1}}</textarea>
+                                                </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane fad" id="variable2" aria-labelledby="home-tab">
+                                            <div class="col-md-6 col-sm-9 col-xs-12">
+                                                <textarea name="variable2" id="variable2" style="height: 450px;width: 100%">{{.variable2}}</textarea>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane fade" id="variable3" aria-labelledby="home-tab">
+                                            <div class="col-md-6 col-sm-9 col-xs-12">
+                                                <textarea name="variable3" id="variable3" style="height: 450px;width: 100%">{{.variable3}}</textarea>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane fade" id="variable4" aria-labelledby="home-tab">
+                                            <div class="col-md-6 col-sm-9 col-xs-12">
+                                                <textarea name="variable4" id="variable4" style="height: 450px;width: 100%">{{.variable4}}</textarea>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane fade" id="variable5" aria-labelledby="home-tab">
+                                            <div class="col-md-6 col-sm-9 col-xs-12">
+                                                <textarea name="variable5" id="variable5" style="height: 450px;width: 100%">{{.variable5}}</textarea>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane fade" id="variable6" aria-labelledby="home-tab">
+                                            <div class="col-md-6 col-sm-9 col-xs-12">
+                                                <textarea name="variable6" id="variable6" style="height: 450px;width: 100%">{{.variable6}}</textarea>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane fade" id="variable7" aria-labelledby="home-tab">
+                                            <div class="col-md-6 col-sm-9 col-xs-12">
+                                                <textarea name="variable7" id="variable7" style="height: 450px;width: 100%">{{.variable7}}</textarea>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane fade" id="variable8" aria-labelledby="home-tab">
+                                            <div class="col-md-6 col-sm-9 col-xs-12">
+                                                <textarea name="variable8" id="variable8" style="height: 450px;width: 100%">{{.variable8}}</textarea>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane fade" id="variable9" aria-labelledby="home-tab">
+                                            <div class="col-md-6 col-sm-9 col-xs-12">
+                                                <textarea name="variable9" id="variable9" style="height: 450px;width: 100%">{{.variable9}}</textarea>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane fade" id="variable10" aria-labelledby="home-tab">
+                                            <div class="col-md-6 col-sm-9 col-xs-12">
+                                                <textarea name="variable10" id="variable10" style="height: 450px;width: 100%">{{.variable10}}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                        <button type="submit" class="btn btn-success" id="submit">保存</button>
+                                    </div>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="/vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="/vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="/vendors/nprogress/nprogress.js"></script>
+<!-- iCheck -->
+<script src="/vendors/iCheck/icheck.min.js"></script>
+<!-- Datatables -->
+<script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+<script src="/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+<script src="/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+<script src="/vendors/jszip/dist/jszip.min.js"></script>
+<script src="/vendors/pdfmake/build/pdfmake.min.js"></script>
+<script src="/vendors/pdfmake/build/vfs_fonts.js"></script>
+
+<!-- Custom Theme Scripts -->
+<script src="/build/js/custom.min.js"></script>
+<script>
+</script>
+</body>
+</html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>容器管理</title>
+
+    <!-- Bootstrap -->
+    <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="/build/css/custom.min.css" rel="stylesheet">
+      <style>
+          .op{
+              margin-right: 3px;
+          }
+          .op:hover{
+              cursor: pointer;
+              color: red;
+          }
+      </style>
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+
+            <div class="clearfix"></div>
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <!-- sidebar menu -->
+              <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                  <div class="menu_section">
+                      <h3>后台管理系统</h3>
+                      <ul class="nav side-menu">
+                          <li><a class="" href="/admin/setting"><i class="fa fa-cogs"></i>系统设置 <span class="fa"></span></a>
+                          </li>
+                          <li><a class="current-page" href="/admin/docker"><i class="fa fa-cogs"></i>容器管理 <span class="fa"></span></a>
+                          </li>
+                          <li class=""><a href="/admin/templates"><i class="fa fa-bar-chart"></i>模板管理 <span class="fa"></span></a>
+                          </li>
+                          <li class=""><a href="/admin/variable"><i class="fa fa-bar-chart"></i>高级变量 <span class="fa"></span></a>
+                          </li>
+                          <li ><a href="/admin/mail"><i class="fa fa-user"></i>邮件发送 <span class="fa"></span></a>
+                          </li>
+
+                      </ul>
+                  </div>
+                  <div class="menu_section" style="visibility: hidden">
+                      <ul class="nav side-menu">
+                          <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
+                      </ul>
+                  </div>
+
+              </div>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+<!--
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="">
+                        <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <img id="avatarImg" src="images/img.jpg" alt="">admin
+                            <span class=" fa fa-angle-down"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-usermenu pull-right">
+                            <li><a href="/admin/user"> 账户设置</a></li>
+                            <li><a href="/admin/login"><i class="fa fa-sign-out pull-right"></i>注销</a></li>
+                            <li>
+                        </ul>
+                    </li>
+                </ul>-->
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+
+            <div class="clearfix"></div>
+              <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="x_panel">
+                      <div class="x_title">
+                          <h2><i class="fa fa-bars"></i>机器列表</h2>
+
+                          <div class="clearfix"></div>
+                      </div>
+                      <div class="x_content">
+
+
+                          <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                              <ul id="machineList" class="nav nav-tabs bar_tabs" role="tablist">
+<!--                                  <li></li>
+                                  <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">未处理</a>
+                                  </li>
+                                  <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">已同意</a>
+                                  </li>
+                                  <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">已拒绝</a>
+                                  </li>
+                                  -->
+                              </ul>
+                              <div id="myTabContent" class="tab-content">
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+              </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="/vendors/nprogress/nprogress.js"></script>
+    <!-- iCheck -->
+    <script src="/vendors/iCheck/icheck.min.js"></script>
+    <!-- Datatables -->
+    <script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="/vendors/jszip/dist/jszip.min.js"></script>
+    <script src="/vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="/vendors/pdfmake/build/vfs_fonts.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="/build/js/custom.min.js"></script>
+    <script>
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        $(document).ready(function () {
+            let tableHtml = `
+                  <div role="tabpanel" class="tab-pane fade active IN" id="TID" aria-labelledby="home-tab">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">要创建的docker实例数量</label>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_content">
+                                <label>
+                                    <input type="text" class="" id="dockerCreate">
+                                <button type="submit" class="btn btn-success" onclick="createDocker(this)" ip="IPVALUE">创建</button>
+                                <button type="submit" class="btn btn-success" onclick="flushDocker(this)" ip="IPVALUE">清空</button>
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">节点信息</label>
+                NODEINFO
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">实例列表</label>
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="x_panel">
+                      <div class="x_content">
+                       <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>容器名</th>
+                          <th>内网ip</th>
+                          <th>pptp ip</th>
+                          <th>状态</th>
+                          <th>创建时间</th>
+                          <th>操作</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        TB
+                      </tbody>
+
+                    </table>
+                      </div>
+                  </div>
+              </div>
+      </div>`
+            let nodeTableHtml = `
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="x_panel">
+                      <div class="x_content">
+                       <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>状态</th>
+                          <th>添加时间</th>
+                          <th>内网ip</th>
+                          <th>网卡名称</th>
+                          <th>dicker aux ip</th>
+                          <th>docker ip range</th>
+                          <th>docker subnet</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                            <td>STATUS</td>
+                            <td>CTIME</td>
+                            <td>IP</td>
+                            <td>NIC</td>
+                            <td>AUX</td>
+                            <td>IPRANGE</td>
+                            <td>SUBNET</td>
+                        </tr>
+                      </tbody>
+
+                    </table>
+                      </div>
+                  </div>
+              </div>`
+            $.ajax({
+                url : "/docker/node",
+                method: "get",
+                success : function (data) {
+                    console.log(data)
+                    data = JSON.parse(data)
+                    if (data.success != true){
+                        alert(data.errMsg)
+                        return
+                    }
+                    let nodes = data.data.nodes
+                    if (nodes.length == 0){
+                        console.log("没有机器")
+                        return
+                    }
+                    for (let i = 0; i < nodes.length; i ++){
+                        let c = ""
+                        let expanded = false
+                        let inStr= ""
+                        let tid = "t" +i
+                        let tbid= "tb" + i
+                        if(i == 0){
+                            c = "active"
+                            expanded = true
+                            inStr = "in"
+                        }
+                        let str = `<li role="presentation" class="` + c + `"><a href="#` + tid + `"` +  ` id="machine` + +i +`"  data-toggle="tab" aria-expanded="` + expanded + `">` +  nodes[i].ip +   `</a></li>`
+                        console.log(str)
+                        $("#machineList").append(str)
+                        let th = tableHtml
+                        let nth = nodeTableHtml
+                        th = th.replace("IN",inStr).replace("TID",tid)
+
+                        $.ajax({
+                            url:"/docker/container/list",
+                            dataType:"json",
+                            data:JSON.stringify( {
+                                "host":nodes[i].ip
+                            }),
+                            method :"post",
+                            success : function (data) {
+                                console.log(data)
+                                //data = JSON.parse(data)
+                                if (data.success != true){
+                                    alert("获取"+nodes[i].ip+" " + data.errMsg)
+                                }else{
+                                    th = th.replace("IPVALUE",nodes[i].ip)
+                                    nth = nth.replace("CTIME",new Date(parseInt(nodes[i].createdTime) * 1000).toLocaleString().replace(/:\d{1,2}$/,' '))
+                                    nth = nth.replace("STATUS",nodes[i].status)
+                                    nth = nth.replace("IP",nodes[i].ip)
+                                    nth = nth.replace("NIC",nodes[i].nic)
+                                    nth = nth.replace("AUX",nodes[i].status)
+                                    nth = nth.replace("IPRANGE",nodes[i].ipRange)
+                                    nth = nth.replace("SUBNET",nodes[i].subnet)
+                                    th = th.replace("NODEINFO",nth)
+                                    let list = data.data
+                                    if (list == undefined){
+                                        th = th.replace("TB","")
+                                        $("#myTabContent").append(th)
+                                        return
+                                    }
+                                    if (list.length < 1){
+                                        th = th.replace("TB","")
+                                        $("#myTabContent").append(th)
+                                        return
+                                    }
+                                    list = list[0].list
+                                    if (list.length < 1){
+                                        th = th.replace("TB","")
+                                        $("#myTabContent").append(th)
+                                        return
+                                    }
+                                    let tbBody = ""
+                                    for (let v in list){
+                                        let tbStr = `<tr id="`+ list[v].id +`">BODY</tr>`
+                                        let index = `<th scope="row">V</th>`.replace("V",parseInt(v)+1)
+                                        let name = `<td>V</td>`.replace("V",list[v].name)
+                                        let ip = `<td>V</td>`.replace("V",list[v].ip)
+                                        let ppip = `<td>V</td>`.replace("V",list[v].pptpIp)
+                                        let status = `<td>V</td>`.replace("V",list[v].status)
+                                        let time = `<td>V</td>`.replace("V",new Date(parseInt(list[v].createdTime) * 1000).toLocaleString().replace(/:\d{1,2}$/,' '))
+                                        let op = '<td><a class="op" onclick="dockerStart(this)" id="VAL" ip="IP">启动</a>' +
+                                            '<a class="op" onclick="dockerStop(this)" id="VAL" ip="IP">停止</a>' +
+                                            '<a class="op" onclick="dockerDel(this)" id="VAL" ip="IP">删除</a></td>'
+                                        list[v].ip = "127.0.0.1"
+                                        op = op.replace(/VAL/g,list[v].id)
+                                        op = op.replace(/IP/g,list[v].ip)
+                                        console.log("ip:",list[v].ip)
+                                        let arr = [index,name,ip,ppip,status,time,op]
+                                        tbStr = tbStr.replace("BODY",arr.join(""))
+                                        tbBody += tbStr
+                                    }
+                                    //tbBody = tbBody.replace()
+                                    console.log(tbBody)
+                                    th = th.replace("TB",tbBody)
+
+                                    $("#myTabContent").append(th)
+                                }
+                            }
+                        })
+  
+                    }
+                }
+            })
+            $("#avatarImg").attr("src",getCookie('avatarImg'))
+        })
+        function dockerStart(event) {
+            $.ajax({
+                url :"/docker/container/start?id=ID&host=HOST".replace("ID",event.id).replace("HOST",$(event).attr("ip")),
+                method :"get",
+                success : function (data) {
+                    //data = JSON.parse(data)
+                    if (!data.success ){
+                        alert(data.errMgs)
+                    }else{
+                        alert("启动成功")
+                    }
+                },
+                error :function (data) {
+                    data = data.responseText
+                    data = JSON.parse(data)
+                    alert(data.errMsg)
+                }
+            })
+        }
+        function dockerStop(event) {
+            console.log($(event).attr("ip"))
+            $.ajax({
+                url :"/docker/container/stop?id=ID&host=HOST".replace("ID",event.id).replace("HOST",$(event).attr("ip")),
+                method :"get",
+                success : function (data) {
+                    //data = JSON.parse(data)
+                    if (!data.success ){
+                        alert(data.errMgs)
+                    }else{
+                        alert("启动成功")
+                    }
+                },
+                error :function (data) {
+                    data = data.responseText
+                    data = JSON.parse(data)
+                    alert(data.errMsg)
+                }
+            })
+        }
+        function dockerDel(event) {
+            $.ajax({
+                url :"/docker/container/delete?id=ID&host=HOST".replace("ID",event.id).replace("HOST",$(event).attr("ip")),
+                method :"delete",
+                success : function (data) {
+                    //data = JSON.parse(data)
+                    if (!data.success ){
+                        alert(data.errMgs)
+                    }else{
+                        alert("启动成功")
+                    }
+                },
+                error :function (data) {
+                    data = data.responseText
+                    data = JSON.parse(data)
+                    alert(data.errMsg)
+                }
+            })
+        }
+        
+        function createDocker(event) {
+            $.ajax({
+                url :"/docker/container/create",
+                method :"post",
+                dataType : "json",
+                data: JSON.stringify( {
+                    "host": $(event).attr("ip"),
+                    "number" : parseInt($("#dockerCreate").val())
+                }),
+                success : function (data) {
+                    $("#dockerCreate").val("")
+                    //data = JSON.parse(data)
+                    if (!data.success ){
+                        alert(data.errMgs)
+                    }else{
+                        alert("启动成功")
+                    }
+                },
+                error :function (data) {
+                    $("#dockerCreate").val("")
+                    data = data.responseText
+                    data = JSON.parse(data)
+                    alert(data.errMsg)
+                }
+            })
+        }
+        function flushDocker(event) {
+            $.ajax({
+                url :"/docker/container/flush",
+                method :"post",
+                dataType : "json",
+                data: JSON.stringify( {
+                    "host": $(event).attr("ip"),
+                }),
+                success : function (data) {
+                    if (!data.success ){
+                        alert(data.errMgs)
+                    }else{
+                        window.location = "/admin/docker"
+                    }
+                },
+                error :function (data) {
+                    $("#dockerCreate").val("")
+                    data = data.responseText
+                    data = JSON.parse(data)
+                    alert(data.errMsg)
+                }
+            })
+        }
+    </script>
+  </body>
+</html>

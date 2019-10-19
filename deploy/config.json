@@ -1,0 +1,27 @@
+{
+  "dockerRepository": "",
+  "dockerApiVersion": "1.37",
+  "adminServerAddr": "",
+  "hostIp": "127.0.0.1",
+  "mongoConfig": {
+    "endpoint": "127.0.0.1",
+    "port": "27017",
+    "user": "mailUser",
+    "password":"abcd1234.",
+    "database": "mail",
+    "deployCollection": "deploy",
+    "nodeCollection": "node",
+    "containerCollection":"container",
+    "adminCollection":"admin",
+    "templatesCollection":"templates",
+    "receiverCollection":"receiver",
+    "sendCollection":"sender",
+    "variableCollection": "variable",
+    "logCollection": "log"
+  },
+  "pptp": {
+    "endpoint": "hb660.3322.org",
+    "username": "q1219",
+    "password": "5678"
+  }
+}

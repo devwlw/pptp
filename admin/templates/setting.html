@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>系统设置</title>
+
+    <!-- Bootstrap -->
+    <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <!-- iCheck -->
+    <!-- bootstrap-wysiwyg -->
+    <!-- Select2 -->
+    <!-- Switchery -->
+    <link href="/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    <!-- starrr -->
+    <!-- bootstrap-daterangepicker -->
+
+    <!-- Custom Theme Style -->
+    <link href="/build/css/custom.min.css" rel="stylesheet">
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <!-- /menu profile quick info -->
+
+                <br />
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3>后台管理系统</h3>
+                        <ul class="nav side-menu">
+                            <li><a class="current-page" href="/admin/setting"><i class="fa fa-cogs"></i>系统设置 <span class="fa"></span></a>
+                            </li>
+                            <li><a class="" href="/admin/docker"><i class="fa fa-cogs"></i>容器管理 <span class="fa"></span></a>
+                            </li>
+                            <li class=""><a href="/admin/templates"><i class="fa fa-bar-chart"></i>模板管理 <span class="fa"></span></a>
+                            </li>
+                            <li class=""><a href="/admin/variable"><i class="fa fa-bar-chart"></i>高级变量 <span class="fa"></span></a>
+                            </li>
+                            <li ><a href="/admin/mail"><i class="fa fa-user"></i>邮件发送 <span class="fa"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="menu_section" style="visibility: hidden">
+                        <ul class="nav side-menu">
+                            <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- /sidebar menu -->
+
+                <!-- /menu footer buttons -->
+                <!-- /menu footer buttons -->
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_content">
+                                <br />
+                                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" enctype="multipart/form-data" action="/admin/setting">
+
+                                    <div class="form-group">
+                                        <label style="color: red;font-size: 15px" class="control-label col-md-3 col-sm-3 col-lg-10">为了最大限度利用ip,系统会根据节点数与当前网络自动计算出每台机器最大的实例数,并且机器数必须为1或者为2的倍数</label>
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" >最大节点数</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" id="maxMachine" required="required" class="form-control col-md-7 col-xs-12" name="maxMachine" value="{{.maxMachine}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" >每台机器最大实例数</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" id="maxInstance" class="form-control col-md-7 col-xs-12" name="maxInstance" value="{{.maxInstance}}" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="ln_solid"></div>
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                            <button type="button" class="btn btn-success" id="submitSetting">保存</button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+
+        <!-- /footer content -->
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="/vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<!-- NProgress -->
+<!-- bootstrap-progressbar -->
+<!-- iCheck -->
+<script src="/vendors/iCheck/icheck.min.js"></script>
+<!-- bootstrap-daterangepicker -->
+<!-- bootstrap-wysiwyg -->
+<script src="/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+<script src="/vendors/google-code-prettify/src/prettify.js"></script>
+<script src="/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+<!-- jQuery Tags Input -->
+<!-- Switchery -->
+<script src="/vendors/switchery/dist/switchery.min.js"></script>
+<!-- Select2 -->
+<!-- Parsley -->
+<script src="/vendors/parsleyjs/dist/parsley.min.js"></script>
+<!-- Autosize -->
+<script src="/vendors/autosize/dist/autosize.min.js"></script>
+<!-- jQuery autocomplete -->
+<script src="/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+<!-- starrr -->
+<script src="/vendors/starrr/dist/starrr.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="/build/js/custom.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#submitSetting").click(function (event) {
+            console.log("click")
+            event.preventDefault();
+            var form = $('#demo-form2')[0];
+            var data = new FormData(form);
+            $.ajax({
+                method : "post",
+                type : "post",
+                xhrFields: {
+                    withCredentials: true
+                },
+                data : data,
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                cache: false,
+                url :"/admin/setting",
+                success: function(data) {
+                    window.location="/admin/setting"
+                },
+                error: function(err) {
+                    alert(err.responseText)
+                }
+            })
+        })
+    })
+
+</script>
+</body>
+</html>

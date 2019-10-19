@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>模板管理</title>
+
+    <!-- Bootstrap -->
+    <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <!-- iCheck -->
+    <!-- bootstrap-wysiwyg -->
+    <!-- Select2 -->
+    <!-- Switchery -->
+    <link href="/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    <!-- starrr -->
+    <!-- bootstrap-daterangepicker -->
+
+    <!-- Custom Theme Style -->
+    <link href="/build/css/custom.min.css" rel="stylesheet">
+    <style>
+        .a-button:hover{
+            cursor: pointer;
+            color: red;
+        }
+    </style>
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <!-- /menu profile quick info -->
+
+                <br />
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3>后台管理系统</h3>
+                        <ul class="nav side-menu">
+                            <li><a class="" href="/admin/setting"><i class="fa fa-cogs"></i>系统设置 <span class="fa"></span></a>
+                            </li>
+                            <li><a class="" href="/admin/docker"><i class="fa fa-cogs"></i>容器管理 <span class="fa"></span></a>
+                            </li>
+                            <li><a href="/admin/templates"><i class="fa fa-bar-chart"></i>模板管理 <span class="fa"></span></a>
+                            </li>
+                            <li class=""><a href="/admin/variable"><i class="fa fa-bar-chart"></i>高级变量 <span class="fa"></span></a>
+                            </li>
+                            <li ><a class="current-page" href="/admin/mail"><i class="fa fa-user"></i>邮件发送 <span class="fa"></span></a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="menu_section" style="visibility: hidden">
+                        <ul class="nav side-menu">
+                            <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- /sidebar menu -->
+
+                <!-- /menu footer buttons -->
+                <!-- /menu footer buttons -->
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+<!--
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <img id="avatarImg" src="images/img.jpg" alt="">admin
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li><a href="/admin/user"> 账户设置</a></li>
+                                <li><a href="/admin/login"><i class="fa fa-sign-out pull-right"></i>注销</a></li>
+                                <li>
+                            </ul>
+                            -->
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <div class="x_panel">
+                            <div class="x_content">
+                                <br />
+                                <form data-parsley-validate class="form-horizontal form-label-left" id="mail-form">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">代理模式</label>
+                                        <div class="col-md-6 col-sm-9 col-xs-12">
+                                            <select class="select2_single form-control" tabindex="-1" id="proxy" name="proxy" required>
+                                                <option></option>
+                                                <option value="ip">IP</option>
+                                                <option value="ip">VPN</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">随机长度</label>
+                                        <div class="col-md-6 col-sm-9 col-xs-12">
+                                            <input type="number" min="1" max="100" id="minNumber" name="minNumber"> - <input type="number" min="2" max="100" id="maxNumber" name="maxNumber" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">上传发件人</label>
+                                        <div class="col-md-6 col-sm-9 col-xs-12">
+                                            <input type="file" id="sender" onchange="uploadFile(this)">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-1 col-sm-3 col-xs-12">上传收件人</label>
+                                        <div class="col-md-6 col-sm-9 col-xs-12">
+                                            <input type="file" id="receiver"  onchange="uploadFile(this)">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-1">
+                                            <button type="submit" class="btn btn-success" onclick="sendMail(this)">开始</button>
+                                            <button type="button" class="btn btn-success">停止</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="clearfix"></div>
+
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                                <div class="x_panel">
+                                                        <div class="title_left">
+                                                            <h5>发件人列表</h5>
+                                                        </div>
+                                                    <div class="x_content">
+                                                        <table id="senderTable" class="table table-striped table-bordered" style="margin: 0 auto;">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>账户</th>
+                                                                <th>密码</th>
+                                                                <th>状态</th>
+                                                                <th>操作</th>
+                                                            </tr>
+                                                            </thead>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="clearfix"></div>
+
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                                <div class="x_panel">
+                                                    <div class="title_left">
+                                                        <h5>收件人列表</h5>
+                                                    </div>
+                                                    <div class="x_content">
+                                                        <table id="receiverTable" class="table table-striped table-bordered" style="margin: 0 auto;">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>账户</th>
+                                                                <th>状态</th>
+                                                                <th>操作</th>
+                                                            </tr>
+                                                            </thead>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="clearfix"></div>
+
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                                <div class="x_panel">
+                                                    <div class="title_left">
+                                                        <h5>发送日志</h5>
+                                                    </div>
+                                                    <div class="x_content">
+                                                        <table id="logTable" class="table table-striped table-bordered" style="margin: 0 auto;">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>发件人</th>
+                                                                <th>收件人</th>
+                                                                <th>发送状态</th>
+                                                                <th>处理状态</th>
+                                                                <th>发送时间</th>
+                                                            </tr>
+                                                            </thead>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+
+        <!-- /footer content -->
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="/vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<!-- NProgress -->
+<!-- bootstrap-progressbar -->
+<!-- iCheck -->
+<script src="/vendors/iCheck/icheck.min.js"></script>
+<!-- bootstrap-daterangepicker -->
+<!-- bootstrap-wysiwyg -->
+<script src="/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+<script src="/vendors/google-code-prettify/src/prettify.js"></script>
+<script src="/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+<!-- jQuery Tags Input -->
+<!-- Switchery -->
+<script src="/vendors/switchery/dist/switchery.min.js"></script>
+<!-- Select2 -->
+<!-- Parsley -->
+<script src="/vendors/parsleyjs/dist/parsley.min.js"></script>
+<!-- Autosize -->
+<script src="/vendors/autosize/dist/autosize.min.js"></script>
+<!-- jQuery autocomplete -->
+<script src="/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+<!-- starrr -->
+<script src="/vendors/starrr/dist/starrr.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="/build/js/custom.js"></script>
+<script src="http://api.51ditu.com/js/ajax.js"></script>
+<script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+<script src="/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+<script src="/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+<script src="/vendors/jszip/dist/jszip.min.js"></script>
+<script src="/vendors/pdfmake/build/pdfmake.min.js"></script>
+<script src="/vendors/pdfmake/build/vfs_fonts.js"></script>
+<script>
+let table1,table2,table3
+function uploadFile(event) {
+    let id = event.id
+    let fileObj = document.getElementById(id).files[0];
+    let form = new FormData();
+    form.append(id, fileObj);
+    $.ajax({
+        method : "post",
+        type : "post",
+        xhrFields: {
+            withCredentials: true
+        },
+        data : form,
+        enctype: 'multipart/form-data',
+        processData: false,
+        contentType: false,
+        cache: false,
+        url :"/admin/"+id,
+        success: function(data) {
+            alert("上传成功")
+            refresh()
+        },
+        error: function(err) {
+            alert(err.responseText)
+        },
+        fail: function (err) {
+            alert(err)
+        }
+    })
+}
+$(document).ready(function () {
+    init()
+    setInterval(function () {
+        table3.ajax.reload()
+    }, 5000);
+})
+
+function init() {
+    initSender()
+    initReceiver()
+    initLog()
+}
+function refresh() {
+    table1.ajax.reload()
+    table2.ajax.reload()
+}
+
+function initSender() {
+    table1 = $('#senderTable').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "ordering": false,
+        "columnDefs" : [
+            {
+                "targets" : 2 ,
+                "render" : function (url, type, full) {
+                    let str
+                    if(full.isUsed){
+                        str = "已使用"
+                    }else{
+                        str = "未使用"
+                    }
+                    return '<a>'+ str+'</a>';
+                }
+            },
+            {
+                "targets" : 3 ,
+                "render" : function (url, type, full) {
+                    console.log(full)
+                    return '<a class="a-button deleteSender" onclick="deleteSender(this)" id="'+ full.id  +'">删除</a>';
+                }
+            },
+            {
+                "targets" :"_all",
+                "className": "text-center",
+            }
+        ],
+        "ajax": {
+            method : "get",
+            url : "/admin/sender/list",
+            xhrFields: {
+                withCredentials: true // 这里设置了withCredentials
+            },
+        },
+        "columns": [
+            { "data": "email" },
+            { "data": "password" },
+            { "data": "id" }
+        ]
+    })
+}
+
+function initReceiver() {
+    table2 = $('#receiverTable').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "ordering": false,
+        "columnDefs" : [
+            {
+                "targets" : 1 ,
+                "render" : function (url, type, full) {
+                    let str
+                    if(full.isUsed){
+                        str = "已使用"
+                    }else{
+                        str = "未使用"
+                    }
+                    return '<a>'+ str+'</a>';
+                }
+            },
+            {
+                "targets" : 2 ,
+                "render" : function (url, type, full) {
+                    console.log(full)
+                    return '<a class="a-button" onclick="deleteReceiver(this)" " id="'+ full.id  +'">删除</a>';
+                }
+            },
+            {
+                "targets" :"_all",
+                "className": "text-center",
+            }
+        ],
+        "ajax": {
+            method : "get",
+            url : "/admin/receiver/list",
+            xhrFields: {
+                withCredentials: true // 这里设置了withCredentials
+            },
+        },
+        "columns": [
+            { "data": "email" },
+            {"data":"isUsed"},
+            { "data": "id" }
+        ]
+    })
+}
+
+function initLog() {
+    ///admin/mail/log/list
+    table3 = $('#logTable').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "ordering": false,
+        "columnDefs" : [
+            {
+                "targets" : 4 ,
+                "render" : function (url, type, full) {
+                    return new Date(parseInt(full.createdTime) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
+                }
+            },
+            {
+                "targets" : 3 ,
+                "render" : function (url, type, full) {
+                    if(full.isProcess==true){
+                        return "已处理"
+                    }else{
+                        return "未处理"
+                    }
+                }
+            },
+            {
+                "targets" : 2 ,
+                "render" : function (url, type, full) {
+                    if(full.isProcess == true){
+                        if(full.success == true){
+                            return "成功"
+                        }else{
+                            return "失败"
+                        }
+                    }
+                }
+            },
+            {
+                "targets" :"_all",
+                "className": "text-center",
+            }
+        ],
+        "ajax": {
+            method : "get",
+            url : "/admin/mail/log/list",
+            xhrFields: {
+                withCredentials: true // 这里设置了withCredentials
+            },
+        },
+        "columns": [
+            { "data": "sender" },
+            { "data": "receiver" },
+            { "data": "success" },
+            { "data": "isProcess" },
+            { "data": "createdTime" },
+        ]
+    })
+}
+
+function deleteSender(event) {
+    $.ajax({
+        method : "delete",
+        xhrFields: {
+            withCredentials: true
+        },
+        processData: false,
+        contentType: false,
+        cache: false,
+        url :"/admin/sender?id="+$(event).attr("id"),
+        success: function(data) {
+            refresh()
+        },
+        error: function(err) {
+            alert(err.responseText)
+        }
+    })
+    
+}
+
+function deleteReceiver(event) {
+    $.ajax({
+        method : "delete",
+        xhrFields: {
+            withCredentials: true
+        },
+        processData: false,
+        contentType: false,
+        cache: false,
+        url :"/admin/receiver?id="+$(event).attr("id"),
+        success: function(data) {
+            refresh()
+        },
+        error: function(err) {
+            alert(err.responseText)
+        }
+    })
+}
+function sendMail(event) {
+        let form = $('#mail-form')[0];
+        let data = new FormData(form);
+        if (data.get("proxy") == ""){
+            return
+        }
+        if (data.get("minNumber") == ""){
+            return
+        }
+        if (data.get("maxNumber") == ""){
+            return
+        }
+
+        $.ajax({
+            method : "post",
+            type : "post",
+            xhrFields: {
+                withCredentials: true
+            },
+            data : data,
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+            cache: false,
+            url :"/admin/mail",
+            success: function(data) {
+                alert("任务已接收")
+            },
+            error: function(err) {
+                alert(err.responseText)
+            }
+        })
+}
+</script>
+</body>
+</html>

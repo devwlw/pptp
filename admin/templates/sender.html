@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>收件人管理</title>
+
+    <!-- Bootstrap -->
+    <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <!-- iCheck -->
+    <!-- bootstrap-wysiwyg -->
+    <!-- Select2 -->
+    <!-- Switchery -->
+    <link href="/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    <!-- starrr -->
+    <!-- bootstrap-daterangepicker -->
+
+    <!-- Custom Theme Style -->
+    <link href="/build/css/custom.min.css" rel="stylesheet">
+    <style>
+        .op{
+            margin-right: 3px;
+        }
+        .op:hover{
+            cursor: pointer;
+            color: red;
+        }
+    </style>
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <!-- /menu profile quick info -->
+
+                <br />
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3>后台管理系统</h3>
+                        <ul class="nav side-menu">
+                            <li><a class="" href=""><i class="fa fa-cogs"></i>系统设置 <span class="fa"></span></a>
+                            </li>
+                            <li><a class="" href="/admin/docker"><i class="fa fa-cogs"></i>docker管理 <span class="fa"></span></a>
+                            </li>
+                            <li ><a href="/admin/templates"><i class="fa fa-bar-chart"></i>模板管理 <span class="fa"></span></a>
+                            </li>
+                            <li class=""><a href="/admin/variable"><i class="fa fa-bar-chart"></i>高级变量 <span class="fa"></span></a>
+                            </li>
+                            <li ><a href="/admin/receiver"><i class="fa fa-file-text"></i>收件人管理 <span class="fa"></span></a>
+                            </li>
+                            <li class="current-page"><a href="/admin/sender"><i class="fa fa-users"></i>发件人管理<span class="fa"></span></a>
+                            </li>
+                            <li ><a href="/admin/mail"><i class="fa fa-user"></i>邮件发送 <span class="fa"></span></a>
+                            </li>
+                            <li ><a href=""><i class="fa fa-user"></i>发送日志 <span class="fa"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="menu_section" style="visibility: hidden">
+                        <ul class="nav side-menu">
+                            <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- /sidebar menu -->
+
+                <!-- /menu footer buttons -->
+                <!-- /menu footer buttons -->
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <!--
+                                        <ul class="nav navbar-nav navbar-right">
+                                            <li class="">
+                                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <img id="avatarImg" src="images/img.jpg" alt="">admin
+                                                    <span class=" fa fa-angle-down"></span>
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                                    <li><a href="/admin/user"> 账户设置</a></li>
+                                                    <li><a href="/admin/login"><i class="fa fa-sign-out pull-right"></i>注销</a></li>
+                                                    <li>
+                                                </ul>
+                                                -->
+                    </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_content">
+                                <div class="form-group" id="tList">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">发件人列表</label>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <div class="x_panel">
+                            <div class="x_content">
+                                <br />
+                                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post" action="/admin/sender" enctype="multipart/form-data">
+
+                                    <div class="form-group">
+
+                                        <div class="col-xs-12">
+                                            <div class="x_panel">
+                                                <div class="x_title">
+                                                    <h2>上传发件人列表文件(发件人之间用换行隔开,账户密码用空格隔开)</h2>
+                                                    <ul class="nav navbar-right panel_toolbox">
+                                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                                                    </ul>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >名称</label>
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <input type="text" required class="form-control col-md-7 col-xs-12" name="name" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >发件人列表文件</label>
+                                                    <div class="controls">
+                                                        <input class="input-file uniform_on" id="fileInput" type="file" name="sender" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ln_solid"></div>
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                            <button type="submit" class="btn btn-success" id="submit">保存</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+
+        <!-- /footer content -->
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="/vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<!-- NProgress -->
+<!-- bootstrap-progressbar -->
+<!-- iCheck -->
+<script src="/vendors/iCheck/icheck.min.js"></script>
+<!-- bootstrap-daterangepicker -->
+<!-- bootstrap-wysiwyg -->
+<script src="/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+<script src="/vendors/google-code-prettify/src/prettify.js"></script>
+<script src="/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+<!-- jQuery Tags Input -->
+<!-- Switchery -->
+<script src="/vendors/switchery/dist/switchery.min.js"></script>
+<!-- Select2 -->
+<!-- Parsley -->
+<script src="/vendors/parsleyjs/dist/parsley.min.js"></script>
+<!-- Autosize -->
+<script src="/vendors/autosize/dist/autosize.min.js"></script>
+<!-- jQuery autocomplete -->
+<script src="/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+<!-- starrr -->
+<script src="/vendors/starrr/dist/starrr.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="/build/js/custom.js"></script>
+<script>
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    function senderDel(event) {
+        let id = event.id
+        $.ajax({
+            url : "/admin/sender/"+id,
+            method:  "delete",
+            success: function(data) {
+                data = JSON.parse(data)
+                if(!data.success){
+                    alert(data.errMsg)
+                    return
+                }
+                window.location="/admin/sender"
+            },
+            error: function(err) {
+                alert(err.responseText)
+            }
+        })
+    }
+    $(document).ready(function () {
+        let tableHtml = `
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="x_panel">
+                      <div class="x_content">
+                       <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>名称</th>
+                          <th>创建时间</th>
+                          <th>操作</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        TB
+                      </tbody>
+
+                    </table>
+                      </div>
+                  </div>
+              </div>
+      `
+        $.ajax({
+            url :"/admin/sender/list",
+            success: function(data) {
+                let list = $("#tList")
+                console.log(data)
+                data = JSON.parse(data)
+                if (!data.success){
+                    alert(data.errMsg)
+                    return
+                }
+
+                data = data.data
+                if (data.length == 0){
+                    return
+                }
+                let tbBody = ""
+                for (let i in data){
+                    let tbStr = `<tr id="`+ data[i].id +`">BODY</tr>`
+                    let index = `<th scope="row">V</th>`.replace("V",parseInt(i)+1)
+                    let name = `<td>V</td>`.replace("V",data[i].name)
+                    let t = `<td>V</td>`.replace("V",data[i].createdTime)
+                    let op = '<td><a href="/admin/sender/VAL" class="op" id="VAL">查看</a>' +
+                        '<a class="op" onclick="senderDel(this)" id="VAL">删除</a>'
+                    op = op.replace(/VAL/g,data[i].id)
+                    let arr = [index,name,t,op]
+                    tbStr = tbStr.replace("BODY",arr.join(""))
+                    tbBody += tbStr
+                }
+                let th = tableHtml
+                th = th.replace("TB",tbBody)
+                list.append(th)
+            },
+            error: function(err) {
+                alert(err.responseText)
+            }
+        })
+
+/*        $("#submit").click(function (event) {
+            console.log("click")
+            event.preventDefault();
+            let form = $('#demo-form2')[0];
+            let data = new FormData(form);
+            $.ajax({
+                method : "post",
+                type : "post",
+                xhrFields: {
+                    withCredentials: true
+                },
+                data : data,
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                cache: false,
+                url :"/admin/sender",
+                success: function(data) {
+                    window.location="/admin/sender"
+                },
+                error: function(err) {
+                    alert(err.responseText)
+                }
+            })
+        })*/
+    })
+
+</script>
+</body>
+</html>

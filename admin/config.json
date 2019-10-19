@@ -1,0 +1,21 @@
+{
+  "defaultMaxInstance": 50,
+  "defaultMaxMachine": 5,
+  "templatePath" : "/Users/wlw/Workspace/go/src/mail/admin/templates",
+  "mongoConfig": {
+    "endpoint": "127.0.0.1",
+    "port": "27017",
+    "user": "mailUser",
+    "password":"abcd1234.",
+    "database": "mail",
+    "deployCollection": "deploy",
+    "nodeCollection": "node",
+    "containerCollection":"container",
+    "adminCollection":"admin",
+    "templatesCollection":"templates",
+    "receiverCollection":"receiver",
+    "sendCollection":"sender",
+    "variableCollection": "variable",
+    "logCollection": "log"
+  }
+}
