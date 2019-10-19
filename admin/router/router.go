@@ -72,7 +72,7 @@ func NewRouter() *Router {
 	r.HandleAdminFunc("/admin/sender", adminHandler.handleSenderPost).Methods(http.MethodPost)
 	r.HandleAdminFunc("/admin/sender", adminHandler.handleSenderDelete).Methods(http.MethodDelete)
 	r.HandleAdminFunc("/admin/sender/list", adminHandler.handleSenderListGet).Methods(http.MethodGet)
-	r.HandleAdminFunc("/admin/sender/{id}", adminHandler.handleSenderDetailGet).Methods(http.MethodGet)
+	//r.HandleAdminFunc("/admin/sender/{id}", adminHandler.handleSenderDetailGet).Methods(http.MethodGet)
 
 	//
 	r.HandleAdminFunc("/admin/setting", adminHandler.handleSettingGet).Methods(http.MethodGet)
