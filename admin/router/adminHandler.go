@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"strings"
 
-	uuid "mail/src/github.com/satori/go.uuid"
+	uuid "github.com/satori/go.uuid"
 
 	sjson "github.com/bitly/go-simplejson"
 	"github.com/gorilla/mux"
