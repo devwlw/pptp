@@ -324,7 +324,7 @@
             }
             case "randVariable":{
                 let name = "variable"+$(event).attr("name")
-                txt = insertPosition(txt, name.toLowerCase(), cursorPosition)
+                txt = insertPosition(txt, "["+name.toUpperCase()+"]", cursorPosition)
                 break
             }
             case "randChinese":{

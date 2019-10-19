@@ -50,14 +50,14 @@ func (t *Templates) fillNumber(str string, min, max int) string {
 
 func (t *Templates) fillVariable(str string, variable map[string]string) string {
 	for i := 0; i < 10; i++ {
-		key := fmt.Sprintf("variable%d", i+1)
-		varStr := variable[key]
-		n := strings.Count(str, strings.ToUpper(key))
+		key := fmt.Sprintf("[VARIABLE%d]", i+1)
+		varStr := variable[fmt.Sprintf("variable%d", i+1)]
+		n := strings.Count(str, key)
 		if n == 0 {
 			continue
 		}
 		if varStr == "" {
-			str = strings.Replace(str, strings.ToUpper(key), "", -1)
+			str = strings.Replace(str, key, "", -1)
 			continue
 		}
 		varArr := make([]string, 0)
@@ -66,7 +66,7 @@ func (t *Templates) fillVariable(str string, variable map[string]string) string 
 			varArr = append(varArr, v)
 		}
 		for j := 0; j < n; j++ {
-			str = strings.Replace(str, strings.ToUpper(key), varArr[t.rand(0, len(varArr))], 1)
+			str = strings.Replace(str, key, varArr[t.rand(0, len(varArr))], 1)
 		}
 	}
 	return str
