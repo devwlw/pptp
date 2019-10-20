@@ -90,9 +90,9 @@ func action(c *cli.Context) {
 }
 
 func sendOkLog() {
-	log.Println("send success")
+	log.Println("[send mail success]")
 }
 
 func sendFailLog(msg string) {
-	panic("send fail:" + msg)
+	log.Println("[send mail failed]," + msg)
 }
