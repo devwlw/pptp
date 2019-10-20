@@ -449,8 +449,9 @@ function initLog() {
             {
                 "targets" : 2 ,
                 "render" : function (url, type, full) {
+                    console.log(full)
                     if(full.isProcess == true){
-                        if(full.success == true){
+                        if(full["success"] == true){
                             return "成功"
                         }else{
                             return "失败"
