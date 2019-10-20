@@ -2,6 +2,7 @@ package router
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -683,6 +684,9 @@ func (h AdminHandler) handleMailPost(w http.ResponseWriter, r *http.Request) err
 		}
 		log.Println("runningIns:", runningIns)
 		tasks := h.genMailTask(proxy, min, max, runningIns, receivers, senders, templates, varMap)
+		dd, _ := json.Marshal(tasks)
+		log.Println(len(tasks))
+		log.Println(string(dd))
 		start := time.Now().Unix()
 		for _, v := range tasks {
 			for _, i := range v {
