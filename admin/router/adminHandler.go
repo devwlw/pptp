@@ -600,6 +600,8 @@ func (h AdminHandler) handleMailPost(w http.ResponseWriter, r *http.Request) err
 		resError(w, err.Error(), 400)
 		return err
 	}
+	dd, _ := json.Marshal(list)
+	log.Println("list:", string(dd))
 	if len(list) == 0 {
 		resError(w, "没有正在运行的实例", 400)
 		return err
@@ -715,10 +717,10 @@ func (h AdminHandler) handleMailPost(w http.ResponseWriter, r *http.Request) err
 					isOk := false
 					err := dSdk.SendMail(task.ContainerId, task.MailType, task.Receiver.Email, task.Title, task.Body, task.Sender.Email, task.Sender.Password, task.Proxy)
 					if err != nil {
-						log.Printf("总共%d个任务,当前:%d,sender:%s,receiver:%s,失败:%s", len(tasks), getCount()+1, task.Sender.Email, task.Receiver.Email, err)
+						log.Printf("总共%d个任务,当前:%d,sender:%s,receiver:%s,失败:%s", len(receivers), getCount()+1, task.Sender.Email, task.Receiver.Email, err)
 					} else {
 						isOk = true
-						log.Printf("总共%d个任务,当前:%d,sender:%s,receiver:%s,成功", len(tasks), getCount()+1, task.Sender.Email, task.Receiver.Email)
+						log.Printf("总共%d个任务,当前:%d,sender:%s,receiver:%s,成功", len(receivers), getCount()+1, task.Sender.Email, task.Receiver.Email)
 					}
 					addCount()
 					task.Success = isOk
