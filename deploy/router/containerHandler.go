@@ -175,7 +175,7 @@ func (h *ContainerHandler) SendMail(w http.ResponseWriter, r *http.Request) erro
 	mailType := sj.Get("mailType").MustString()
 	receiver := sj.Get("receiver").MustString()
 	title := sj.Get("title").MustString()
-	body := sj.Get("title").MustString()
+	body := sj.Get("body").MustString()
 	username := sj.Get("username").MustString()
 	password := sj.Get("password").MustString()
 	mode := sj.Get("mode").MustString()

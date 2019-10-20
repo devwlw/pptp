@@ -28,6 +28,7 @@ func (s *Sender163) Send(username, password, receiver, title, body, mode string)
 	if err != nil {
 		return err
 	}
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	var res *http.Response
 	log.Println("mode:", mode)
 	if strings.ToUpper(mode) == "IP" {
@@ -35,13 +36,17 @@ func (s *Sender163) Send(username, password, receiver, title, body, mode string)
 	} else {
 		err = exec.Command("/pptp_start.sh").Run()
 		if err != nil {
-			log.Println("err:", err)
+			log.Println("start pptp failed:", err)
 			return err
 		}
 		log.Println("start pptp success")
 		time.Sleep(time.Second * 3) //等待三秒是为了保证能正常启动pptp client,这里可以优化
 		res, err = http.DefaultClient.Do(req)
-		exec.Command("/pptp_stop.sh").Run()
+		stopErr := exec.Command("/pptp_stop.sh").Run()
+		if stopErr != nil {
+			log.Println("stop pptp failed:", stopErr)
+		}
+		log.Println("stop pptp success")
 	}
 	log.Println("res err:", err)
 	if err != nil {
