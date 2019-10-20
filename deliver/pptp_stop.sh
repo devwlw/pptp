@@ -1,2 +1,2 @@
 #!/bin/sh
-pkill pptp
+pkill -9 pppd

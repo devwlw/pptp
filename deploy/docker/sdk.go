@@ -104,14 +104,25 @@ func (s *SDK) SendMail(id, mailType, receiver, title, body, username, password, 
 		AttachStdout: true,
 		Cmd:          []string{"/deliver", "send", "-type=" + mailType, "-receiver=" + receiver, "-title=" + title, "-body=" + body, "-username=" + username, "-password=" + password, "-mode=" + mode},
 	})
+	log.Printf("dockerId:%s, cmd:%s", id, []string{"/deliver", "send", "-type=" + mailType, "-receiver=" + receiver, "-title=" + title, "-body=" + body, "-username=" + username, "-password=" + password, "-mode=" + mode})
 	if err != nil {
 		return err
 	}
+
 	log.Println("execId:", res.ID)
-	return s.client.ContainerExecStart(s.ctx, res.ID, types.ExecStartCheck{
-		Detach: false,
+	err = s.client.ContainerExecStart(s.ctx, res.ID, types.ExecStartCheck{
+		Detach: true,
 		Tty:    false,
 	})
+	if err != nil {
+		return err
+	}
+	info, err := s.client.ContainerExecInspect(s.ctx, res.ID)
+	if err != nil {
+		return err
+	}
+	log.Printf("exec info:%#v", info)
+	return nil
 }
 
 /*func (s *SDK) Do(method, action string, body io.Reader) (*sjson.Json, error) {
