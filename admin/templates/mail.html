@@ -286,7 +286,7 @@
 <script src="/vendors/jszip/dist/jszip.min.js"></script>
 <script src="/vendors/pdfmake/build/pdfmake.min.js"></script>
 <script src="/vendors/pdfmake/build/vfs_fonts.js"></script>
-<script>
+<script type="text/javascript">
 let table1,table2,table3
 function uploadFile(event) {
     let id = event.id
@@ -492,7 +492,7 @@ function deleteSender(event) {
         cache: false,
         url :"/admin/sender?id="+$(event).attr("id"),
         success: function(data) {
-            refresh()
+            table1.ajax.reload()
         },
         error: function(err) {
             alert(err.responseText)
@@ -512,7 +512,7 @@ function deleteReceiver(event) {
         cache: false,
         url :"/admin/receiver?id="+$(event).attr("id"),
         success: function(data) {
-            refresh()
+            table2.ajax.reload()
         },
         error: function(err) {
             alert(err.responseText)
