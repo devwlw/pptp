@@ -297,7 +297,6 @@
                             inStr = "in"
                         }
                         let str = `<li role="presentation" class="` + c + `"><a href="#` + tid + `"` +  ` id="machine` + +i +`"  data-toggle="tab" aria-expanded="` + expanded + `">` +  nodes[i].ip +   `</a></li>`
-                        console.log(str)
                         $("#machineList").append(str)
                         let th = tableHtml
                         let nth = nodeTableHtml
@@ -311,7 +310,6 @@
                             }),
                             method :"post",
                             success : function (data) {
-                                console.log(data)
                                 //data = JSON.parse(data)
                                 if (data.success != true){
                                     alert("获取"+nodes[i].ip+" " + data.errMsg)
@@ -357,13 +355,11 @@
                                         list[v].ip = "127.0.0.1"
                                         op = op.replace(/VAL/g,list[v].id)
                                         op = op.replace(/IP/g,list[v].ip)
-                                        console.log("ip:",list[v].ip)
                                         let arr = [index,name,ip,ppip,status,time,op]
                                         tbStr = tbStr.replace("BODY",arr.join(""))
                                         tbBody += tbStr
                                     }
                                     //tbBody = tbBody.replace()
-                                    console.log(tbBody)
                                     th = th.replace("TB",tbBody)
 
                                     $("#myTabContent").append(th)
