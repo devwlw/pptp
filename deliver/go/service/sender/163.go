@@ -3,6 +3,7 @@ package sender
 import (
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
 	"net/url"
 	"os/exec"
@@ -22,16 +23,19 @@ func (s *Sender163) Send(username, password, receiver, title, body, mode string)
 	uv.Set("receiver", receiver)
 	uv.Set("mailtitle", title)
 	uv.Set("mailcontent", body)
+	log.Printf("%s %s", urlStr, uv.Encode())
 	req, err := http.NewRequest(http.MethodPost, urlStr, strings.NewReader(uv.Encode()))
 	if err != nil {
 		return err
 	}
 	var res *http.Response
-	if strings.ToLower(mode) == "IP" {
+	log.Println("mode:", mode)
+	if strings.ToUpper(mode) == "IP" {
 		res, err = http.DefaultClient.Do(req)
 	} else {
 		err = exec.Command("/pptp_start.sh").Run()
 		if err != nil {
+			log.Println("err:", err)
 			return err
 		}
 		time.Sleep(time.Second * 3) //等待三秒是为了保证能正常启动pptp client,这里可以优化

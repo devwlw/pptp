@@ -458,7 +458,7 @@ function initLog() {
                 "targets" : 4 ,
                 "render" : function (url, type, full) {
                     if (full.createdTime == 0){
-                        return ""
+                        return "-"
                     }
                     return new Date(parseInt(full.createdTime) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
                 }

@@ -53,6 +53,7 @@ func (s *DeploySdk) SendMail(id, mailType, receiver, title, body, username, pass
 	sj.Set("username", username)
 	sj.Set("password", password)
 	sj.Set("mode", mode)
+	log.Printf("send mail:%s,%s,%s", id, s.endpoint, receiver)
 	urlStr := fmt.Sprintf("%s/docker/mail/send", s.endpoint)
 	dd, _ := sj.Encode()
 	req, err := http.NewRequest(http.MethodPost, urlStr, bytes.NewReader(dd))
@@ -67,6 +68,8 @@ func (s *DeploySdk) SendMail(id, mailType, receiver, title, body, username, pass
 	if err != nil {
 		return err
 	}
+	dd, _ = sj.Encode()
+	log.Printf("mail id:%s,receiver:%s , res:%s", id, receiver, string(dd))
 	if sj.Get("success").MustBool() {
 		return nil
 	}

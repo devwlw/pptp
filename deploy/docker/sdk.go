@@ -107,6 +107,7 @@ func (s *SDK) SendMail(id, mailType, receiver, title, body, username, password, 
 	if err != nil {
 		return err
 	}
+	log.Println("execId:", res.ID)
 	return s.client.ContainerExecStart(s.ctx, res.ID, types.ExecStartCheck{
 		Detach: false,
 		Tty:    false,
