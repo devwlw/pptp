@@ -291,6 +291,7 @@ let table1,table2,table3
 function uploadFile(event) {
     let id = event.id
     let fileObj = document.getElementById(id).files[0];
+    document.getElementById(id).value=""
     let form = new FormData();
     form.append(id, fileObj);
     $.ajax({
