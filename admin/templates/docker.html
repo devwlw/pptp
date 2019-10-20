@@ -314,7 +314,7 @@
                                 if (data.success != true){
                                     alert("获取"+nodes[i].ip+" " + data.errMsg)
                                 }else{
-                                    th = th.replace("/IPVALUE/g",nodes[i].ip)
+                                    th = th.replace(/IPVALUE/g,nodes[i].ip)
                                     nth = nth.replace("CTIME",new Date(parseInt(nodes[i].createdTime) * 1000).toLocaleString().replace(/:\d{1,2}$/,' '))
                                     nth = nth.replace("STATUS",nodes[i].status)
                                     nth = nth.replace("IP",nodes[i].ip)
