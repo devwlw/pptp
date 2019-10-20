@@ -600,8 +600,6 @@ func (h AdminHandler) handleMailPost(w http.ResponseWriter, r *http.Request) err
 		resError(w, err.Error(), 400)
 		return err
 	}
-	dd, _ := json.Marshal(list)
-	log.Println("list:", string(dd))
 	if len(list) == 0 {
 		resError(w, "没有正在运行的实例", 400)
 		return err
@@ -626,7 +624,7 @@ func (h AdminHandler) handleMailPost(w http.ResponseWriter, r *http.Request) err
 		for _, j := range v.List {
 			if strings.Contains(strings.ToUpper(j.Status), "UP") {
 				ids := runningIns[v.Ip]
-				ids = append(ids, v.Id)
+				ids = append(ids, j.Id)
 				runningIns[v.Ip] = ids
 			}
 		}
