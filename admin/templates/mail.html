@@ -321,7 +321,7 @@ $(document).ready(function () {
     init()
     setInterval(function () {
         table3.ajax.reload()
-    }, 5000);
+    }, 20000);
 })
 
 function init() {
@@ -355,7 +355,6 @@ function initSender() {
             {
                 "targets" : 3 ,
                 "render" : function (url, type, full) {
-                    console.log(full)
                     return '<a class="a-button deleteSender" onclick="deleteSender(this)" id="'+ full.id  +'">删除</a>';
                 }
             },
@@ -400,7 +399,6 @@ function initReceiver() {
             {
                 "targets" : 2 ,
                 "render" : function (url, type, full) {
-                    console.log(full)
                     return '<a class="a-button" onclick="deleteReceiver(this)" " id="'+ full.id  +'">删除</a>';
                 }
             },
