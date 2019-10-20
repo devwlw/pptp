@@ -768,15 +768,23 @@ func (h AdminHandler) handleMailLogListGet(w http.ResponseWriter, r *http.Reques
 	sj.Set("draw", draw)
 	sj.Set("recordsTotal", total)
 	sj.Set("recordsFiltered", total)
-	reArr := make([]*sjson.Json, len(re))
+	type simpleRe struct {
+		Sender      string `json:"sender"`
+		Receiver    string `json:"receiver"`
+		Success     bool   `json:"success"`
+		IsProcess   bool   `json:"isProcess"`
+		CreatedTime int64  `json:"createdTime"`
+	}
+
+	reArr := make([]simpleRe, len(re))
 	for i := 0; i < len(re); i++ {
-		sj := sjson.New()
-		sj.Set("sender", re[i].Sender.Email)
-		sj.Set("receiver", re[i].Receiver.Email)
-		sj.Set("success", re[i].Success)
-		sj.Set("isProcess", re[i].IsProcess)
-		sj.Set("createdTime", re[i].CreatedTime)
-		reArr[i] = sj
+		reArr[i] = simpleRe{
+			Sender:      re[i].Sender.Email,
+			Receiver:    re[i].Receiver.Email,
+			Success:     re[i].Success,
+			IsProcess:   re[i].IsProcess,
+			CreatedTime: re[i].CreatedTime,
+		}
 	}
 	sj.Set("data", reArr)
 	dd, _ := sj.Encode()
