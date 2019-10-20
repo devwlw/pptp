@@ -433,13 +433,14 @@ function initLog() {
             {
                 "targets" : 2 ,
                 "render" : function (url, type, full) {
-                    console.log(full)
                     if(full.isProcess == true){
                         if(full.isSuccess == true){
                             return "成功"
                         }else{
                             return "失败"
                         }
+                    }else{
+                        return ""
                     }
                 }
             },
