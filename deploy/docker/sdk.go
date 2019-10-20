@@ -3,6 +3,7 @@ package docker
 import (
 	sc "context"
 	"encoding/json"
+	"io/ioutil"
 	"log"
 	"mail/config"
 
@@ -110,13 +111,19 @@ func (s *SDK) SendMail(id, mailType, receiver, title, body, username, password, 
 	}
 
 	log.Println("execId:", res.ID)
-	err = s.client.ContainerExecStart(s.ctx, res.ID, types.ExecStartCheck{
-		Detach: true,
-		Tty:    false,
-	})
+	err = s.client.ContainerExecStart(s.ctx, res.ID, types.ExecStartCheck{})
 	if err != nil {
 		return err
 	}
+	re, err := s.client.ContainerExecAttach(s.ctx, res.ID, types.ExecStartCheck{})
+	if err != nil {
+		return err
+	}
+	data, err := ioutil.ReadAll(re.Reader)
+	if err != nil {
+		return err
+	}
+	log.Println("res data:", string(data))
 	info, err := s.client.ContainerExecInspect(s.ctx, res.ID)
 	if err != nil {
 		return err

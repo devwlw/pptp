@@ -181,6 +181,7 @@ func (h *ContainerHandler) SendMail(w http.ResponseWriter, r *http.Request) erro
 	mode := sj.Get("mode").MustString()
 	err = h.Ctx.SDK.SendMail(id, mailType, receiver, title, body, username, password, mode)
 	if err != nil {
+		log.Println(err)
 		resError(w, err.Error(), 400)
 		return err
 	}
