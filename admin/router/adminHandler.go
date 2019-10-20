@@ -681,6 +681,7 @@ func (h AdminHandler) handleMailPost(w http.ResponseWriter, r *http.Request) err
 			SetRunningStatus(false)
 			return
 		}
+		log.Println("runningIns:", runningIns)
 		tasks := h.genMailTask(proxy, min, max, runningIns, receivers, senders, templates, varMap)
 		start := time.Now().Unix()
 		for _, v := range tasks {
