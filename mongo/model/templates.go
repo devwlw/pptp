@@ -19,7 +19,7 @@ func (t *Templates) FillTemplate(min, max int, variable map[string]string) strin
 	str = t.fillNumber(str, min, max)
 	str = t.fillChs(str, min, max)
 	str = t.fillEmpty(str, min, max)
-	str = t.fillEmpty(str, min, max)
+	str = t.fillLine(str, min, max)
 	if variable != nil {
 		str = t.fillVariable(str, variable)
 	}

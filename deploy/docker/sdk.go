@@ -3,9 +3,11 @@ package docker
 import (
 	sc "context"
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"log"
 	"mail/config"
+	"strings"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
@@ -125,13 +127,10 @@ func (s *SDK) SendMail(id, mailType, receiver, title, body, username, password, 
 	log.Println()
 	log.Println("res data:", string(data))
 	log.Println()
-	log.Println()
-	info, err := s.client.ContainerExecInspect(s.ctx, res.ID)
-	if err != nil {
-		return err
+	if strings.Contains(string(data), "[send mail success]") {
+		return nil
 	}
-	log.Printf("exec info:%#v", info)
-	return nil
+	return errors.New("发送失败")
 }
 
 /*func (s *SDK) Do(method, action string, body io.Reader) (*sjson.Json, error) {

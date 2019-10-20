@@ -711,7 +711,6 @@ func (h AdminHandler) handleMailPost(w http.ResponseWriter, r *http.Request) err
 			wg.Add(1)
 			go func(arr []model.Log) {
 				for _, task := range arr {
-
 					dSdk := sdk.NewDeploySdk(task.MachineIp)
 					isOk := false
 					err := dSdk.SendMail(task.ContainerId, task.MailType, task.Receiver.Email, task.Title, task.Body, task.Sender.Email, task.Sender.Password, task.Proxy)

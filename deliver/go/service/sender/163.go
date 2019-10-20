@@ -31,6 +31,7 @@ func (s *Sender163) Send(username, password, receiver, title, body, mode string)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	var res *http.Response
 	log.Println("mode:", mode)
+	start := time.Now().Unix()
 	if strings.ToUpper(mode) == "IP" {
 		res, err = http.DefaultClient.Do(req)
 	} else {
@@ -40,7 +41,7 @@ func (s *Sender163) Send(username, password, receiver, title, body, mode string)
 			return err
 		}
 		log.Println("start pptp success")
-		time.Sleep(time.Second * 3) //等待三秒是为了保证能正常启动pptp client,这里可以优化
+		time.Sleep(time.Second * 2) //等待2秒是为了保证能正常启动pptp client,这里可以优化
 		res, err = http.DefaultClient.Do(req)
 		stopErr := exec.Command("/pptp_stop.sh").Run()
 		if stopErr != nil {
@@ -48,6 +49,11 @@ func (s *Sender163) Send(username, password, receiver, title, body, mode string)
 		}
 		log.Println("stop pptp success")
 	}
+	var end int64
+	if strings.ToUpper(mode) == "VPN" {
+		end = time.Now().Unix() - start - 2
+	}
+	log.Printf("java发信耗时%d秒", end-start)
 	log.Println("res err:", err)
 	if err != nil {
 		return err
