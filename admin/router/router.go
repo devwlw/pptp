@@ -81,7 +81,7 @@ func NewRouter() *Router {
 	r.HandleAdminFunc("/admin/mail", adminHandler.handleMailPageGet).Methods(http.MethodGet)
 	r.HandleAdminFunc("/admin/mail", adminHandler.handleMailPost).Methods(http.MethodPost)
 	r.HandleAdminFunc("/admin/mail/log/list", adminHandler.handleMailLogListGet).Methods(http.MethodGet)
-	r.HandleAdminFunc("/admin/mail/log/detail", adminHandler.handleMailLogDetail).Methods(http.MethodGet)
+	//r.HandleAdminFunc("/admin/mail/log/detail", adminHandler.handleMailLogDetail).Methods(http.MethodGet)
 	return r
 }
 

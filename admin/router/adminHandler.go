@@ -751,12 +751,6 @@ func (h AdminHandler) handleMailPost(w http.ResponseWriter, r *http.Request) err
 
 func (h AdminHandler) handleMailLogListGet(w http.ResponseWriter, r *http.Request) error {
 	lr := h.Ctx.MongoClient.LogRepository()
-	re, err := lr.Get()
-	if err != nil {
-		resError(w, err.Error(), 400)
-		return err
-	}
-
 	draw := r.URL.Query().Get("draw")
 	length := r.URL.Query().Get("length")
 	value := r.URL.Query().Get("search[value]")
@@ -764,24 +758,33 @@ func (h AdminHandler) handleMailLogListGet(w http.ResponseWriter, r *http.Reques
 	start := r.URL.Query().Get("start")
 	startNum, _ := strconv.Atoi(start)
 	lengthNum, _ := strconv.Atoi(length)
-	var endNum int
-	if startNum > len(re) {
-		startNum = len(re)
+	re, total, err := lr.Get(startNum, lengthNum)
+	if err != nil {
+		resError(w, err.Error(), 400)
+		return err
 	}
-	if startNum+lengthNum > len(re) {
-		endNum = len(re)
-	}
-	resData := re[startNum:endNum]
+
 	sj := sjson.New()
 	sj.Set("draw", draw)
-	sj.Set("recordsTotal", len(re))
-	sj.Set("recordsFiltered", len(resData))
-	sj.Set("data", resData)
+	sj.Set("recordsTotal", total)
+	sj.Set("recordsFiltered", total)
+	reArr := make([]*sjson.Json, len(re))
+	for i := 0; i < len(re); i++ {
+		sj := sjson.New()
+		sj.Set("sender", re[i].Sender.Email)
+		sj.Set("receiver", re[i].Receiver.Email)
+		sj.Set("success", re[i].Success)
+		sj.Set("isProcess", re[i].IsProcess)
+		sj.Set("createdTime", re[i].CreatedTime)
+		reArr[i] = sj
+	}
+	sj.Set("data", reArr)
 	dd, _ := sj.Encode()
 	w.Write(dd)
 	return nil
 }
 
+/*
 func (h AdminHandler) handleMailLogDetail(w http.ResponseWriter, r *http.Request) error {
 	lr := h.Ctx.MongoClient.LogRepository()
 	re, err := lr.Get()
@@ -811,7 +814,7 @@ func (h AdminHandler) handleMailLogDetail(w http.ResponseWriter, r *http.Request
 	sj.Set("total", len(re))
 	resJson(w, sj)
 	return nil
-}
+}*/
 
 func (h AdminHandler) genMailTask(proxy string, min, max int, ins map[string][]string, receivers []*model.ReceiverInfo, senders []*model.SendInfo, templates []*model.Templates, varMap map[string]string) map[string][]model.Log {
 	re := make(map[string][]model.Log)

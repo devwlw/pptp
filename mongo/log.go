@@ -6,6 +6,7 @@ import (
 	"mail/mongo/model"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -42,24 +43,28 @@ func (a *Log) GetById(id string) (*model.Log, error) {
 	return log, nil
 }
 
-func (a *Log) Get() ([]*model.Log, error) {
-	logs := make([]*model.Log, 0)
-	re, err := a.c.Find(a.ctx, bson.D{})
+func (a *Log) Get(start, limit int) ([]*model.Log, int64, error) {
+	option := new(options.FindOptions)
+	option.SetLimit(int64(limit))
+	option.SetSkip(int64(start))
+	cur, err := a.c.Find(a.ctx, bson.M{}, option)
 	if err != nil {
-		if err == mongo.ErrNoDocuments {
-			return nil, nil
-		}
-		return nil, err
+		return nil, 0, err
 	}
-	for re.Next(a.ctx) {
-		t := new(model.Log)
-		err := re.Decode(t)
+	re := make([]*model.Log, 0)
+	for cur.Next(a.ctx) {
+		l := new(model.Log)
+		err := cur.Decode(l)
 		if err != nil {
-			return nil, err
+			return nil, 0, err
 		}
-		logs = append(logs, t)
+		re = append(re, l)
 	}
-	return logs, nil
+	total, err := a.c.CountDocuments(a.ctx, bson.M{})
+	if err != nil {
+		return nil, 0, err
+	}
+	return re, total, nil
 }
 
 func (a *Log) Upsert(log *model.Log) error {
