@@ -11,6 +11,7 @@ import (
 	"math/rand"
 	"strconv"
 	"strings"
+	"sync"
 
 	uuid "github.com/satori/go.uuid"
 
@@ -682,38 +683,59 @@ func (h AdminHandler) handleMailPost(w http.ResponseWriter, r *http.Request) err
 		}
 		tasks := h.genMailTask(proxy, min, max, runningIns, receivers, senders, templates, varMap)
 		start := time.Now().Unix()
-		for i := 0; i < len(tasks); i++ {
-			err := lr.Upsert(&tasks[i])
-			if err != nil {
-				log.Println(err)
+		for _, v := range tasks {
+			for _, i := range v {
+				err := lr.Upsert(&i)
+				if err != nil {
+					log.Println(err)
+				}
 			}
 		}
-		for i := 0; i < len(tasks); i++ {
-			dSdk := sdk.NewDeploySdk(tasks[i].MachineIp)
-			isOk := false
-			err := dSdk.SendMail(tasks[i].ContainerId, tasks[i].MailType, tasks[i].Receiver.Email, tasks[i].Title, tasks[i].Body, tasks[i].Sender.Email, tasks[i].Sender.Password, tasks[i].Proxy)
-			if err != nil {
-				log.Printf("总共%d个任务,当前:%d,失败:%s", len(tasks), i+1, err)
-			} else {
-				isOk = true
-				log.Printf("总共%d个任务,当前:%d,成功", len(tasks), i+1)
-			}
-			tasks[i].Success = isOk
-			tasks[i].IsProcess = true
-			tasks[i].CreatedTime = time.Now().Unix()
-			err = lr.Upsert(&tasks[i])
-			if err != nil {
-				log.Println("upsert task err:", err)
-			}
-			err = sr.Upsert(tasks[i].Sender)
-			if err != nil {
-				log.Println("upsert sender err:", err)
-			}
-			err = rr.Upsert(tasks[i].Receiver)
-			if err != nil {
-				log.Println("upsert receiver err:", err)
-			}
+		var wg sync.WaitGroup
+		taskCount := 0
+		var lock sync.Mutex
+		var addCount = func() {
+			lock.Lock()
+			taskCount++
+			lock.Unlock()
 		}
+		var getCount = func() int {
+			return taskCount
+		}
+		for _, v := range tasks {
+			wg.Add(1)
+			go func(arr []model.Log) {
+				for _, task := range v {
+					dSdk := sdk.NewDeploySdk(task.MachineIp)
+					isOk := false
+					err := dSdk.SendMail(task.ContainerId, task.MailType, task.Receiver.Email, task.Title, task.Body, task.Sender.Email, task.Sender.Password, task.Proxy)
+					if err != nil {
+						log.Printf("总共%d个任务,当前:%d,sender:%s,receiver:%s,失败:%s", len(tasks), getCount()+1, task.Sender.Email, task.Receiver.Email, err)
+					} else {
+						isOk = true
+						log.Printf("总共%d个任务,当前:%d,sender:%s,receiver:%s,成功", len(tasks), getCount()+1, task.Sender.Email, task.Receiver.Email)
+					}
+					addCount()
+					task.Success = isOk
+					task.IsProcess = true
+					task.CreatedTime = time.Now().Unix()
+					err = lr.Upsert(&task)
+					if err != nil {
+						log.Println("upsert task err:", err)
+					}
+					err = sr.Upsert(task.Sender)
+					if err != nil {
+						log.Println("upsert sender err:", err)
+					}
+					err = rr.Upsert(task.Receiver)
+					if err != nil {
+						log.Println("upsert receiver err:", err)
+					}
+				}
+				wg.Done()
+			}(v)
+		}
+		wg.Wait()
 		log.Printf("运行完成,总共耗时%d秒", time.Now().Unix()-start)
 		SetRunningStatus(false)
 	}()
@@ -784,8 +806,8 @@ func (h AdminHandler) handleMailLogDetail(w http.ResponseWriter, r *http.Request
 	return nil
 }
 
-func (h AdminHandler) genMailTask(proxy string, min, max int, ins map[string][]string, receivers []*model.ReceiverInfo, senders []*model.SendInfo, templates []*model.Templates, varMap map[string]string) []model.Log {
-	re := make([]model.Log, len(receivers))
+func (h AdminHandler) genMailTask(proxy string, min, max int, ins map[string][]string, receivers []*model.ReceiverInfo, senders []*model.SendInfo, templates []*model.Templates, varMap map[string]string) map[string][]model.Log {
+	re := make(map[string][]model.Log)
 	dockerInfo := make([]string, 0)
 	for k, v := range ins {
 		for _, i := range v {
@@ -804,7 +826,8 @@ func (h AdminHandler) genMailTask(proxy string, min, max int, ins map[string][]s
 		host := strings.Split(dockerInfo[dockerCount], ":")[0]
 		dockerId := strings.Split(dockerInfo[dockerCount], ":")[1]
 		temp := templates[rand.Intn(len(templates))]
-		re[i] = model.Log{
+		arr := re[dockerId]
+		arr = append(arr, model.Log{
 			Id:          uuid.NewV4().String(),
 			Sender:      senders[senderCount],
 			Body:        temp.FillTemplate(min, max, varMap),
@@ -815,7 +838,8 @@ func (h AdminHandler) genMailTask(proxy string, min, max int, ins map[string][]s
 			MailType:    "163",
 			ContainerId: dockerId,
 			IsProcess:   false,
-		}
+		})
+		re[dockerId] = arr
 		senderCount++
 		dockerCount++
 	}
