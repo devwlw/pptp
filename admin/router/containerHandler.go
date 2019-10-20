@@ -48,7 +48,7 @@ func (h ContainerHandler) Flush(w http.ResponseWriter, r *http.Request) error {
 		resError(w, err.Error(), 400)
 		return err
 	}
-	if len(re.List) == 0 {
+	if re == nil || len(re.List) == 0 {
 		resJson(w, nil)
 		return nil
 	}
