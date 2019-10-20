@@ -728,6 +728,8 @@ func (h AdminHandler) handleMailPost(w http.ResponseWriter, r *http.Request) err
 					if err != nil {
 						log.Println("upsert task err:", err)
 					}
+					task.Sender.IsUsed = true
+					task.Receiver.IsUsed = true
 					err = sr.Upsert(task.Sender)
 					if err != nil {
 						log.Println("upsert sender err:", err)
