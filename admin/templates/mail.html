@@ -431,12 +431,16 @@ function initLog() {
         "ordering": false,
         "columnDefs" : [
             {
-                "targets" : 4 ,
+                "targets" : 2 ,
                 "render" : function (url, type, full) {
-                    if (full.createdTime == 0){
-                        return
+                    console.log(full)
+                    if(full.isProcess == true){
+                        if(full.isSuccess == true){
+                            return "成功"
+                        }else{
+                            return "失败"
+                        }
                     }
-                    return new Date(parseInt(full.createdTime) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
                 }
             },
             {
@@ -450,18 +454,16 @@ function initLog() {
                 }
             },
             {
-                "targets" : 2 ,
+                "targets" : 4 ,
                 "render" : function (url, type, full) {
-                    console.log(full)
-                    if(full.isProcess == true){
-                        if(full["success"] == true){
-                            return "成功"
-                        }else{
-                            return "失败"
-                        }
+                    if (full.createdTime == 0){
+                        return
                     }
+                    return new Date(parseInt(full.createdTime) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');
                 }
             },
+
+
             {
                 "targets" :"_all",
                 "className": "text-center",
@@ -477,7 +479,7 @@ function initLog() {
         "columns": [
             { "data": "sender" },
             { "data": "receiver" },
-            { "data": "success" },
+            { "data": "isSuccess" },
             { "data": "isProcess" },
             { "data": "createdTime" },
         ]

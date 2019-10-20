@@ -771,7 +771,7 @@ func (h AdminHandler) handleMailLogListGet(w http.ResponseWriter, r *http.Reques
 	type simpleRe struct {
 		Sender      string `json:"sender"`
 		Receiver    string `json:"receiver"`
-		Success     bool   `json:"success"`
+		Success     bool   `json:"isSuccess"`
 		IsProcess   bool   `json:"isProcess"`
 		CreatedTime int64  `json:"createdTime"`
 	}
