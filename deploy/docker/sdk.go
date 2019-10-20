@@ -122,7 +122,10 @@ func (s *SDK) SendMail(id, mailType, receiver, title, body, username, password, 
 	if err != nil {
 		return err
 	}
+	log.Println()
 	log.Println("res data:", string(data))
+	log.Println()
+	log.Println()
 	info, err := s.client.ContainerExecInspect(s.ctx, res.ID)
 	if err != nil {
 		return err

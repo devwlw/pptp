@@ -38,10 +38,12 @@ func (s *Sender163) Send(username, password, receiver, title, body, mode string)
 			log.Println("err:", err)
 			return err
 		}
+		log.Println("start pptp success")
 		time.Sleep(time.Second * 3) //等待三秒是为了保证能正常启动pptp client,这里可以优化
 		res, err = http.DefaultClient.Do(req)
 		exec.Command("/pptp_stop.sh").Run()
 	}
+	log.Println("res err:", err)
 	if err != nil {
 		return err
 	}
@@ -49,6 +51,8 @@ func (s *Sender163) Send(username, password, receiver, title, body, mode string)
 	if err != nil {
 		return err
 	}
+	dd, _ := sj.Encode()
+	log.Println("java res data:", string(dd))
 	if sj.GetPath("resphead", "success").MustBool() {
 		return nil
 	}
